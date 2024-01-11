@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.demo.module1.testactivity.TestDynamicActivity;
+import com.alibaba.android.arouter.demo.module1.testservice.SayHiService;
 import com.alibaba.android.arouter.demo.service.model.TestObj;
 import com.alibaba.android.arouter.demo.service.model.TestParcelable;
 import com.alibaba.android.arouter.demo.service.model.TestSerializable;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.autoInject).setOnClickListener(this);
     }
 
     /**
@@ -151,7 +153,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .navigation();
                 break;
             case R.id.navByName:
-                ((HelloService) ARouter.getInstance().build("/yourservicegroupname/hello").navigation()).sayHello("mike");
+                Object hello = ARouter.getInstance().build("/yourservicegroupname/hello").navigation();
+                Object hello2 = ARouter.getInstance().build("/yourservicegroupname/hello2").navigation();
+                if (hello instanceof HelloService) {
+                    ((HelloService) hello).sayHello("mike");
+                } else {
+                    Log.d("MainActivity", ">>> hello:" + hello.toString());
+                }
+                if (hello2 instanceof HelloService) {
+                    ((HelloService) hello2).sayHello("mike");
+                }else {
+                    Log.d("MainActivity", ">>> hello2:" + hello.toString());
+                }
+                SayHiService hiService = (SayHiService) ARouter.getInstance().build("/yourservicegroupname/hi").navigation();
+//                SayHiService hiService = ARouter.getInstance().navigation(SayHiService.class);
+                if (hiService != null) {
+                    hiService.sayHi("mike");
+                }
                 break;
             case R.id.navByType:
                 ARouter.getInstance().navigation(HelloService.class).sayHello("mike");

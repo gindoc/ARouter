@@ -19,12 +19,30 @@ import java.util.Map;
  * @since 2017/2/23 下午1:39
  */
 class Warehouse {
-    // Cache route and metas
+    /**
+     * Cache route and metas
+     * 以groupName为key，IRouteGroup为value
+     * 初始化时传给ARouter$$Root$${moduleName}.loadInto(Map<String, Class<? extends IRouteGroup>> routes)
+     */
     static Map<String, Class<? extends IRouteGroup>> groupsIndex = new HashMap<>();
+
+    /**
+     * 以path为key，Activity/Fragment/IProvider相关的RouteMeta为value
+     * 根据path找不到对应的RouteMeta时 或者 动态添加路由时，会传给ARouter$$Group$${groupName}.loadInto(Map<String, RouteMeta> atlas)
+     */
     static Map<String, RouteMeta> routes = new HashMap<>();
 
-    // Cache provider
+    /**
+     * Cache provider
+     * 第一次实例化IProvider实现类后，缓存起来，后续就不需要重复实例化
+     * 以IProvider实现类的Class对象为key，IProvider实现类的实例为value
+     */
     static Map<Class, IProvider> providers = new HashMap<>();
+
+    /**
+     * 以 @Route修饰的IProvider实现类 / 或其接口 为key，IProvider实现类的RouteMeta为value
+     * 初始化时传给ARouter$$Providers$${moduleName}.loadInto(Map<String, RouteMeta> providers)
+     */
     static Map<String, RouteMeta> providersIndex = new HashMap<>();
 
     // Cache interceptor

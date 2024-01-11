@@ -10,6 +10,7 @@ import javax.lang.model.element.Element;
 
 /**
  * It contains basic route information.
+ * RouteMeta包含@Route注解的基本信息
  *
  * @author Alex <a href="mailto:zhilong.liu@aliyun.com">Contact me.</a>
  * @version 1.0
@@ -17,15 +18,20 @@ import javax.lang.model.element.Element;
  */
 public class RouteMeta {
     private RouteType type;         // Type of route
+
+    // @Route修饰的类
     private Element rawType;        // Raw type of route
     private Class<?> destination;   // Destination
     private String path;            // Path of route
     private String group;           // Group of route
     private int priority = -1;      // The smaller the number, the higher the priority
     private int extra;              // Extra data
+
+    // 以@Autowired的name属性的值为key，成员变量的类型对应的枚举的ordinal为value
     private Map<String, Integer> paramsType;  // Param type
     private String name;
 
+    // 以@Autowired的name属性的值为key，Autowired注解为value
     private Map<String, Autowired> injectConfig;  // Cache inject config.
 
     public RouteMeta() {

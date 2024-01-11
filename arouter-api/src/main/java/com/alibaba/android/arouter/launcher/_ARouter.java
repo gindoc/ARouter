@@ -223,6 +223,7 @@ final class _ARouter {
 
     /**
      * Extract the default group from path.
+     * 从path中提取group
      */
     private String extractGroup(String path) {
         if (TextUtils.isEmpty(path) || !path.startsWith("/")) {

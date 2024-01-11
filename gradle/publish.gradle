@@ -82,12 +82,14 @@ afterEvaluate { project ->
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                repository(url: getReleaseRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                }
-                snapshotRepository(url: getSnapshotRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                }
+//                repository(url: getReleaseRepositoryUrl()) {
+//                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+//                }
+//                snapshotRepository(url: getSnapshotRepositoryUrl()) {
+//                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+//                }
+                def depath = file("/Users/gindoc/Documents/self_proj/ARouter/repo")
+                repository(url:"file://${depath.absolutePath}")
 
                 configurePom(pom)
             }

@@ -1,8 +1,12 @@
 buildscript {
     ext.kotlin_version = '1.4.10'
-    ext.arouter_register_version = '1.0.2'
+//    ext.arouter_register_version = '1.0.2'
+    ext.arouter_register_version = '1.0.3-SNAPSHOT'
 
     repositories {
+        maven {
+            url "$rootDir/repo"
+        }
         maven {
             url 'http://dl.bintray.com/jetbrains/intellij-plugin-service'
         }
@@ -21,6 +25,9 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url "$rootDir/repo"
+        }
         mavenLocal()
         mavenCentral()
         maven {
