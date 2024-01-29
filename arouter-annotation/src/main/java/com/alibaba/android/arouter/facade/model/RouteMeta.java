@@ -27,7 +27,19 @@ public class RouteMeta {
     private int priority = -1;      // The smaller the number, the higher the priority
     private int extra;              // Extra data
 
-    // 以@Autowired的name属性的值为key，成员变量的类型对应的枚举的ordinal为value
+    /**
+     * 以@Autowired的name属性的值为key，成员变量的类型对应的枚举的ordinal为value
+     * 在RouteProcessor处理@Route注解时会收集Activity或Fragment中被@Autowired注解修饰过的成员变量
+     * 主要用于生成文档RouteDoc，以及ARouter$$Group$${groupName}.loadInto方法的函数体中
+     * atlas.put(..., RouteMeta.build(..., paramsType, ...))的 paramsType 的 map body，
+     * 例如：atlas.put("/test/activity1", RouteMeta.build(RouteType.ACTIVITY,
+     *                Test1Activity.class, "/test/activity1", "test",
+     *                new java.util.HashMap<String, Integer>(){{put("ser", 9); put("ch", 5); ... }},
+     *                -1, -2147483648));
+     * 同时，如果ARouter是利用uri的方式进行路由的话，还会用于配合uri中参数，调用postcard.withXxx方法将uri中的参数
+     * 设置到postcard的mBundle中，例如arouter://m.aliyun.com/test/activity2?name=jacky，
+     * 则会以name为key，jacky为value放入postcard的mBundle中
+     */
     private Map<String, Integer> paramsType;  // Param type
     private String name;
 

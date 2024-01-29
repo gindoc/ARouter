@@ -222,13 +222,17 @@ public final class Postcard extends RouteMeta {
 
     /**
      * Set object value, the value will be convert to string by 'Fastjson'
+     * 传递object对象
      *
      * @param key   a String, or null
      * @param value a Object, or null
      * @return current
      */
     public Postcard withObject(@Nullable String key, @Nullable Object value) {
+        // 获取SerializationService，也是IProvider，
+        // 通过自定义SerializationService的方式，内部根据自身需要实现序列化和反序列化的方法，例如使用Gson或fastjson
         serializationService = ARouter.getInstance().navigation(SerializationService.class);
+        // 将序列化后的值保存到mBundle中
         mBundle.putString(key, serializationService.object2Json(value));
         return this;
     }

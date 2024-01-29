@@ -61,6 +61,10 @@ public class Test1Activity extends BaseActivity {
     @Autowired
     HelloService helloService;
 
+    @Autowired(name = "/yourservicegroupname/ahello")
+    HelloService helloService1;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

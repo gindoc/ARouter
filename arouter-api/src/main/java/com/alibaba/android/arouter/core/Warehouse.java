@@ -45,8 +45,17 @@ class Warehouse {
      */
     static Map<String, RouteMeta> providersIndex = new HashMap<>();
 
-    // Cache interceptor
+    /**
+     * Cache interceptor
+     * 以priority为key，拦截器的实现类的class对象为value
+     * 初始化时传给ARouter$$Interceptors$${moduleName}.loadInto(Map<Integer, Class<? extends IInterceptor>> interceptors)
+     */
     static Map<Integer, Class<? extends IInterceptor>> interceptorsIndex = new UniqueKeyTreeMap<>("More than one interceptors use same priority [%s]");
+
+    /**
+     * InterceptorServiceImpl初始化时会实例化interceptorsIndex中保存的拦截器类，然后混存到interceptors中，
+     * 然后在_ARouter.navigation(...)时遍历interceptors中缓存的拦截器，执行各拦截器的process方法
+     */
     static List<IInterceptor> interceptors = new ArrayList<>();
 
     static void clear() {

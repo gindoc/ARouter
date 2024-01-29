@@ -7,8 +7,8 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.demo.service.HelloService;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
-@Route(path = "/yourservicegroupname/hello2")
-public class HelloServiceImpl2 implements HelloService {
+@Route(path = "/yourservicegroupname/hello1")
+public class AHelloServiceImpl2 implements HelloService {
     Context mContext;
 
     @Override
